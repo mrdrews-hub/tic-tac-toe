@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const props = defineProps({
   countdown: Number,
-  player: String
+  player: Object
 })
 </script>
 <template>
