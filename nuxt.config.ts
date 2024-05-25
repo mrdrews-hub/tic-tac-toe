@@ -1,24 +1,34 @@
+
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: true },
   ssr: true,
   experimental: {
-    componentIslands: true
+    componentIslands: true,
   },
-  modules: ["@nuxtjs/tailwindcss", "@nuxt/image", "@nuxt/eslint"],
+  nitro: {
+    experimental: {
+      websocket: true
+    }
+  },
+  modules: [
+    "@nuxtjs/tailwindcss",
+    "@nuxt/image",
+    "@nuxt/eslint",
+  ],
   app: {
     head: {
       htmlAttrs: {
-        'data-theme': 'halloween',
+        "data-theme": "halloween",
       }
     }
   },
   image: {
-    domains: ['picsum.photos'],
+    domains: ["picsum.photos"],
     presets: {
       avatar: {
         modifiers: {
-          format: 'webp',
+          format: "webp",
           width: 250,
           height: 250
         }
