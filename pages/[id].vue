@@ -131,7 +131,7 @@ watch(countdown, (newval) => {
 let ws: WebSocket | undefined;
 const handleConnectWebSocket = async () => {
   const isSecure = location.protocol === "https:";
-  const url = (isSecure ? "wss://" : "ws://") + location.host + "/api/room?userId=" + players.value[0].id;
+  const url = (isSecure ? "wss://" : "ws://") + location.host + "/_ws?userId=" + players.value[0].id;
   if (ws) {
     console.warn("ws", "Closing previous connection before reconnecting...");
     ws.close();

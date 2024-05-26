@@ -1,4 +1,3 @@
-
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: true },
@@ -11,11 +10,10 @@ export default defineNuxtConfig({
       websocket: true
     }
   },
-  modules: [
-    "@nuxtjs/tailwindcss",
-    "@nuxt/image",
-    "@nuxt/eslint",
-  ],
+  modules: ["@nuxtjs/tailwindcss", "@nuxt/image", "@nuxt/eslint", "@nuxtjs/supabase", "@vueuse/nuxt"],
+  supabase: {
+    redirect: false,
+  },
   app: {
     head: {
       htmlAttrs: {

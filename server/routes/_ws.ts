@@ -18,7 +18,7 @@ export default defineWebSocketHandler({
     console.log("[ws] error", peer, error);
   },
 
-    upgrade(req) {
+  upgrade(req) {
     return {
       headers: {
         "x-powered-by": "cross-ws",
