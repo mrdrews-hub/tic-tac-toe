@@ -21,8 +21,9 @@ export default defineEventHandler(async (event) => {
         message: "player must be at least 1",
       })
     }
-    const { data } = await client.from('room').insert({name, players});
+    const { data } = await client.from('room').insert({name, players}).select();
+    console.log(data);
     
     setResponseStatus(event, 201)
-    return { message: "success create room" }
+    return { message: "success create room", data: data }
 })

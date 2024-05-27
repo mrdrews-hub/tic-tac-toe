@@ -4,6 +4,7 @@ export default defineNuxtConfig({
   ssr: true,
   experimental: {
     componentIslands: true,
+    cookieStore: true,
   },
   nitro: {
     experimental: {
@@ -22,7 +23,7 @@ export default defineNuxtConfig({
     }
   },
   image: {
-    domains: ["picsum.photos"],
+    domains: ["picsum.photos", 'th.bing.com', 'api.dicebear.com'],
     presets: {
       avatar: {
         modifiers: {

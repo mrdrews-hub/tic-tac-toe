@@ -3,6 +3,6 @@ export interface Player {
   name: string;
   avatar: string | null;
   color: string;
-  tile: 'x' | 'o';
+  tile: 'x' | 'o' | null;
   win: number;
 }

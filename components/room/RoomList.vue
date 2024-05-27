@@ -8,7 +8,7 @@ const emits = defineEmits(['onJoin', 'onCreate', 'onSearch'])
 const isRoomFull = (item) => item?.player?.length === 2
 </script>
 <template>
-  <div class="relative flex flex-col rounded-md bg-neutral-800 px-4 py-6 gap-3">
+  <div class="relative flex flex-col rounded-md bg-neutral-800 px-4 py-6 gap-3 min-h-24">
     <input type="search" class="input" placeholder="Search Rooms..." :value="props.searchValue" @input="emits('onSearch', $event.target?.value)">
     <div v-if="props.loading" class="absolute inset-0 bg-black/20 flex justify-center items-center">
       <span class="loading loading-bars loading-md"></span>
