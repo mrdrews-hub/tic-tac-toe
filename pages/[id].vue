@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import type { Player } from "~~/utils/types/player";
 
+const route = useRoute();
+
 // Game Logic
 const countdown = ref(15) // second
 const players: Ref<[Player, Player]> = ref([
@@ -113,6 +115,9 @@ const handleMove = (row: any, col: any) => {
     }
   }
 }
+const { data, pending } = await useFetch(`/api/room/${route.params.id}`, {
+  lazy: true
+})
 
 const start = ref(false);
 const startGame = () => {
@@ -148,17 +153,16 @@ const handleConnectWebSocket = async () => {
 
   await new Promise((resolve) => ws!.addEventListener("open", resolve));
 };
-
 onMounted(() => {
   handleConnectWebSocket();
 })
 </script>
 <template>
-  <div id="gameWrapper" class="mt-24 flex flex-col justify-center">
+  <div id="gameWrapper" class="mt-24 flex flex-col justify-center" v-if="!pending">
     <StatusGameStatus class="mx-auto mb-8" :player="currentPlaying" :countdown="countdown" />
     <div class="grid grid-cols-3">
       <section id="player" class="flex justify-center items-center">
-        <PlayerCard :profile="players[0]" :isPlaying="players[0].id === currentPlaying.id" />
+        <PlayerCard :profile="data.room.players[0]" :isPlaying="players[0].id === currentPlaying.id" />
       </section>
       <section id="board">
         <BoardGame
