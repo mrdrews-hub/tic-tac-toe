@@ -1,7 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: true },
-  ssr: true,
+  ssr: process.env.ssr,
   experimental: {
     componentIslands: true,
     cookieStore: true,
@@ -9,7 +9,8 @@ export default defineNuxtConfig({
   nitro: {
     experimental: {
       websocket: true
-    }
+    },
+    preset: process.env.deploy_preset
   },
   modules: ["@nuxtjs/tailwindcss", "@nuxt/image", "@nuxt/eslint", "@nuxtjs/supabase", "@vueuse/nuxt"],
   supabase: {
