@@ -1,7 +1,8 @@
 <script setup>
-const userId = useCookie('_nID')
+import { nanoid } from "nanoid";
+const userId = useCookie("_nID");
 
-userId.value = userId.value || crypto.randomUUID()
+userId.value = userId.value || nanoid();
 </script>
 <template>
   <div>

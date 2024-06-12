@@ -1,67 +1,68 @@
 <script setup lang="ts">
-import type { Player } from '~/utils/types/player';
+import type { Player } from "~/utils/types/player";
 
 const router = useRouter();
 const route = useRoute();
-const userId = useCookie('_nID')
+const userId = useCookie("_nID");
 
 const filter = reactive({
-  search: ''
-})
+  search: "",
+});
 
-const { data, error, pending, refresh: refreshRoomList } = await useLazyFetch(`/api/room`, {
-  headers: useRequestHeaders(['cookie']),
+const {
+  data,
+  error,
+  pending,
+  refresh: refreshRoomList,
+} = await useLazyFetch(`/api/room`, {
+  headers: useRequestHeaders(["cookie"]),
   query: filter,
   immediate: false,
-})
+});
 
-const handleCheckUser = () => {
-  
-}
+const handleCheckUser = () => {};
 
-const lastSelectedRoom = ref(null)
+const lastSelectedRoom = ref(null);
 const handleJoinRoom = (id) => {
-  if (!localStorage.getItem('user')) {
-    shouldCreateUser.value = true
-    lastSelectedRoom.value = id
-    return
+  if (!localStorage.getItem("user")) {
+    shouldCreateUser.value = true;
+    lastSelectedRoom.value = id;
+    return;
   }
-  router.push(`/${id}`)
-}
+  router.push(`/${id}`);
+};
 
 const handleCreateRoom = async (autoJoin = false) => {
-  if (!localStorage.getItem('user')) {
-    shouldCreateUser.value = true
-    actionAfterCreate.value = "create"
-    return
+  if (!localStorage.getItem("user")) {
+    shouldCreateUser.value = true;
+    actionAfterCreate.value = "create";
+    return;
   }
-  const user1 = JSON.parse(localStorage.getItem('user'))
-  const { data, error, pending } = await useFetch('/api/room', {
-    headers: useRequestHeaders(['cookie']),
-    method: 'post',
+  const user1 = JSON.parse(localStorage.getItem("user"));
+  const { data, error, pending } = await useFetch("/api/room", {
+    headers: useRequestHeaders(["cookie"]),
+    method: "post",
     body: {
-      name: 'ajigile',
-      players: [user1, ""]
-    }
-  })
+      name: "ajigile",
+      players: [user1, ""],
+    },
+  });
   if (error.value) {
-    throw new Error("Error")
+    throw new Error("Error");
   }
   if (autoJoin) {
-    router.push(`/${data.value?.data[0]?.id}`)  
+    router.push(`/${data.value?.data[0]?.id}`);
   }
-  refreshRoomList()
-}
+  refreshRoomList();
+};
 const handleSearchRooms = useDebounceFn(async (keyword) => {
   try {
-    filter.search = keyword
-  } catch (error) {
-    
-  }
-}, 600) 
+    filter.search = keyword;
+  } catch (error) {}
+}, 600);
 
-const shouldCreateUser = ref(false)
-const actionAfterCreate = ref('create')
+const shouldCreateUser = ref(false);
+const actionAfterCreate = ref("create");
 const handleCreateUser = (value: Partial<Player>) => {
   const user = {
     avatar: value.avatar,
@@ -69,26 +70,26 @@ const handleCreateUser = (value: Partial<Player>) => {
     id: userId.value,
     name: value.name,
     tile: null,
-    win: 0
-  }
-  localStorage.setItem('user', JSON.stringify(user))
-  shouldCreateUser.value = false
-  if (actionAfterCreate.value === 'join') {
-    router.push(`/${lastSelectedRoom.value}`)
+    win: 0,
+  };
+  localStorage.setItem("user", JSON.stringify(user));
+  shouldCreateUser.value = false;
+  if (actionAfterCreate.value === "join") {
+    router.push(`/${lastSelectedRoom.value}`);
   } else {
-    handleCreateRoom(true)
+    handleCreateRoom(true);
   }
-}
+};
 // watchDebounced(filter, () => {
 //   refreshRoomList({ dedupe: true })
 // }, { deep: true, debounce: 500 })
 onMounted(() => {
-  refreshRoomList()
-})
+  refreshRoomList();
+});
 </script>
 <template>
   <div class="grid min-h-screen py-24">
-    <section id="roomList" class="w-full md:max-w-xl md:mx-auto">
+    <section id="roomList" class="w-full md:mx-auto md:max-w-xl">
       <RoomList
         :rooms="data?.room"
         :searchValue="filter.search"
@@ -98,6 +99,9 @@ onMounted(() => {
         @onSearch="handleSearchRooms"
       />
     </section>
-    <PlayerModalCreatePlayer @create-user="(value) => handleCreateUser(value)" :show="shouldCreateUser" />
+    <PlayerModalCreatePlayer
+      @create-user="(value) => handleCreateUser(value)"
+      :show="shouldCreateUser"
+    />
   </div>
 </template>

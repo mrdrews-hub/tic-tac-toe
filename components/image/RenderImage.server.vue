@@ -1,8 +1,7 @@
-
 <script setup>
 const props = defineProps({
-  src: String
-})
+  src: String,
+});
 </script>
 <template>
   <NuxtImg :src="props.src" preset="avatar" />

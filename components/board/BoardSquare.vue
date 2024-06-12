@@ -1,11 +1,13 @@
 <script setup lang="ts">
 interface Props {
-  value: "x" | "o"
+  value: "x" | "o";
 }
-const props = defineProps<Props>()
+const props = defineProps<Props>();
 </script>
 <template>
-  <div class="flex justify-center items-center aspect-square border text-4xl font-extrabold hover:bg-primary/30 transition-all hover:cursor-crosshair">
+  <div
+    class="flex aspect-square items-center justify-center border text-4xl font-extrabold transition-all hover:cursor-crosshair hover:bg-primary/30"
+  >
     {{ props.value }}
   </div>
 </template>

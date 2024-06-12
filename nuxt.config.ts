@@ -8,11 +8,17 @@ export default defineNuxtConfig({
   },
   nitro: {
     experimental: {
-      websocket: true
+      websocket: true,
     },
-    preset: process.env.deploy_preset
+    preset: process.env.deploy_preset,
   },
-  modules: ["@nuxtjs/tailwindcss", "@nuxt/image", "@nuxt/eslint", "@nuxtjs/supabase", "@vueuse/nuxt"],
+  modules: [
+    "@nuxtjs/tailwindcss",
+    "@nuxt/image",
+    "@nuxt/eslint",
+    "@nuxtjs/supabase",
+    "@vueuse/nuxt",
+  ],
   supabase: {
     redirect: false,
   },
@@ -20,22 +26,20 @@ export default defineNuxtConfig({
     head: {
       htmlAttrs: {
         "data-theme": "halloween",
-      }
-    }
+      },
+    },
   },
   image: {
-    domains: ["picsum.photos", 'th.bing.com', 'api.dicebear.com'],
+    domains: ["picsum.photos", "th.bing.com", "api.dicebear.com"],
     presets: {
       avatar: {
         modifiers: {
           format: "webp",
           width: 250,
-          height: 250
-        }
-      }
-    }
+          height: 250,
+        },
+      },
+    },
   },
-  css: [
-    "~/assets/css/main.css"
-  ]
-})
+  css: ["~/assets/css/main.css"],
+});
